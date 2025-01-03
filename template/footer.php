@@ -1,8 +1,8 @@
 
 <footer id="footer" class="bg-one">
   <div class="footer-bottom">
-    <h5>&copy; Copyright 2020. All rights reserved.</h5>
-    <h6>Design and Developed by <a href="https://themefisher.com/">Themefisher</a></h6>
+    <h5>&copy; Copyright 2024. All rights reserved.</h5>
+    <h6>Design and Developed by <a href="http://127.0.0.1/web/template/new/">Kise Ryota</a></h6>
   </div>
 </footer> <!-- end footer -->
 

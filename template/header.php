@@ -18,7 +18,7 @@ if($path == '/web/template/new/'){
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Bingo | Responsive Multipurpose Parallax HTML5 Template</title>
+  <title>Kms Fitri</title>
 
     <!-- Menyertakan Marked.js dari CDN -->
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.12/lib/marked.min.js"></script>
@@ -79,9 +79,10 @@ Fixed Navigation
     <!-- main nav -->
     <nav class="navbar navbar-expand-lg navbar-light px-0">
       <!-- logo -->
-      <a class="navbar-brand logo" href="index.html">
-        <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
-        <img loading="lazy" class="logo-white" src="images/logo-white.png" alt="logo" />
+      <a class="navbar-brand logo" href="http://127.0.0.1/web/template/new/">
+        <!-- <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
+        <img loading="lazy" class="logo-white" src="images/logo-white.png" alt="logo" /> -->
+        <h1 style="color: white; font-weight: bold;">KMS Fitri</h1>
       </a>
       <!-- /logo -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
@@ -91,20 +92,19 @@ Fixed Navigation
 
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav ml-auto text-center">
-			
-			<li class="nav-item <?= $beranda; ?>">
-				<a class="nav-link" href="http://127.0.0.1/web/template/new/" >Beranda</a>
-			  </li>
-          <li class="nav-item dropdown  <?= $artikel; ?>">
-            <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Artikel <i class="tf-ion-chevron-down"></i>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="kategoriList">
-            </ul>
-          </li>
-          <li class="nav-item ">
-				<a class="nav-link" href="http://127.0.0.1/web/template/new/admin/" >Login</a>
-			  </li>
+          <li class="nav-item <?= $beranda; ?>">
+            <a class="nav-link" href="http://127.0.0.1/web/template/new/" >Beranda</a>
+            </li>
+              <li class="nav-item dropdown  <?= $artikel; ?>">
+                <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Artikel <i class="tf-ion-chevron-down"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="kategoriList">
+                </ul>
+              </li>
+              <li class="nav-item ">
+            <a class="nav-link" href="http://127.0.0.1/web/template/new/admin/" >Login</a>
+            </li>
         </ul>
       </div>
     </nav>
