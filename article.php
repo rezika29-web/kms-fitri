@@ -1,0 +1,301 @@
+<?php
+include 'template/header.php';
+?>
+
+<style>
+    /* Loader */
+    #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color:rgb(177, 176, 187);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: transform 3s ease, opacity 3s ease;
+    }
+
+    .slide-load {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    /* .slide-load div {
+        width: 300px;
+        height: 300px;
+        z-index: 9999; */
+        /* border: 2px solid rgb(96 139 168);
+        border-radius: 5px;
+        background-color: rgb(96 139 168 / 0.2); */
+    /* } */
+
+
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+
+    /* Animasi setelah loader selesai */
+    .loader-hidden {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    .contentBaru {
+        transition: filter 1s ease-in;
+        /* transform: translateX(-100%); */
+        /* transition: transform 1s ease-out, opacity 1s ease-out; */
+        filter: blur(10px) opacity(0); /* Awal: blur dan opacity 0 */
+    }
+
+    .visible {
+        /* transform: translateX(0); */
+        filter: blur(0) opacity(1); /* Akhir: jelas dan opacity penuh */
+    }
+
+    .sideContent {
+        /* transition: filter 3s ease; */
+        transform: translateX(100%);
+        transition: transform 2s ease-out, opacity 2s ease-out;
+        filter: opacity(0); /* Awal: blur dan opacity 0 */
+    }
+
+    .visibleSide {
+        transform: translateX(0);
+        filter: opacity(1); /* Akhir: jelas dan opacity penuh */
+    }
+</style>
+
+<!-- Loader -->
+<div id="loader">
+    ]<div class="slide-load">
+        <div>
+            <img src="test.gif" width="200" height="200"></img>
+        </div>
+    <!-- <div class="box"></div> -->
+    </div>
+
+</div>
+
+<!-- Konten -->
+<div class="content" style="display: none;">
+    <?php include 'content/contentarticle.php'; ?>
+</div>
+
+<?php
+include 'template/footer.php';
+?>
+
+<script>
+    // Tampilkan loader selama 3 detik dan animasikan ke atas
+    window.addEventListener("load", function() {
+        setTimeout(function() {
+            const loader = document.getElementById("loader");
+            loader.classList.add("loader-hidden"); // Tambahkan kelas animasi
+            setTimeout(function() {
+                loader.style.display = "none"; // Sembunyikan loader setelah animasi selesai
+                document.querySelector(".content").style.display = "block"; // Tampilkan konten
+            }, 800); // Durasi animasi sesuai CSS (0.8s)
+        }, 3000); // Durasi loader: 3000 ms
+    });
+</script>
+
+
+<script>     
+    function formatTanggal(dateString) {
+        // Ubah string ISO menjadi objek Date
+        const date = new Date(dateString);
+
+        // Daftar nama bulan dalam Bahasa Indonesia
+        const bulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+
+        // Ambil bagian-bagian tanggal
+        const tahun = date.getFullYear();
+        const bulanNama = bulan[date.getMonth()]; // Bulan dimulai dari 0
+        const hari = date.getDate();
+
+        // Format ke Desember 31, 2024
+        return `${bulanNama} ${hari}, ${tahun}`;
+    }
+
+    $(document).ready(function() {
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Ambil parameter ID
+        const id = getQueryParam('id');
+        // Request data dari server
+        $.ajax({
+            url: 'http://localhost:1337/api/korans?populate=*&filters[documentId][$eq]=' + id, // Ganti dengan URL server Anda
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                let resData = data.data[0];
+                // Bersihkan daftar pengguna sebelumnya
+                $('#contenArticle').empty();
+                
+                const isoDate = resData.createdAt;
+                const formattedDate = formatTanggal(isoDate);
+
+                $.post('markdown.php', {
+                        action: 'article',
+                        isi: resData.isi
+                    }, function (response) {
+                        var data = JSON.parse(response);
+                        
+                        // Looping data dan tambahkan ke elemen HTML
+                        $('#contenArticle').append(
+                        ` <article class="post">
+                                    <div class="post-content">
+                                        <h3> `+ resData.judul +`</h3>
+                                        <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            `+ resData.users_permissions_user.username +` / `+formattedDate+`
+                                        </li>
+                                        </ul>
+                                        <div class="contentBaru" id="targetElement">` + data.message + `</div>
+                                    </div>
+                            </article>`
+                        );
+
+                        
+                        $('#judulArticle').append(resData.judul);
+                        $('#breadcrumbArticle').append(`<li class="breadcrumb-item"><a href="index.html" class="text-white">Article</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" >`+ resData.judul +`</li>`); 
+                    });
+                },
+            error: function(error) {
+                alert('Gagal memuat data!');
+                console.error(error);
+            }
+        });
+    });
+</script>
+
+<script>
+    // Menggunakan JavaScript untuk mendeteksi posisi scroll
+    window.addEventListener('scroll', function () {
+        const target = document.getElementById('targetElement');
+        const rect = target.getBoundingClientRect();
+
+        // Cek jika elemen terlihat di viewport
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            target.classList.add('visible'); // Tambahkan class untuk efek
+        } else {
+            target.classList.remove('visible'); // Kembalikan ke blur
+        }
+
+        const targetside = document.getElementById('targetElementSideContent');
+        const rectSide = targetside.getBoundingClientRect();
+
+        // Cek jika elemen terlihat di viewport
+        if (rectSide.top < window.innerHeight && rectSide.bottom > 0) {
+            targetside.classList.add('visibleSide'); // Tambahkan class untuk efek
+        } else {
+            targetside.classList.remove('visibleSide'); // Kembalikan ke blur
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#searchInput').on('keyup', function () {
+            var searchValue = $(this).val().toLowerCase(); // Ambil nilai input dan ubah ke lowercase
+            $('#kategoriListSide li').filter(function () {
+                // Periksa apakah teks cocok dengan input
+                $(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1);
+            });
+        });
+    });
+</script>
+
+<script>
+    function formatTanggal(dateString) {
+        // Ubah string ISO menjadi objek Date
+        const date = new Date(dateString);
+
+        // Daftar nama bulan dalam Bahasa Indonesia
+        const bulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+
+        // Ambil bagian-bagian tanggal
+        const tahun = date.getFullYear();
+        const bulanNama = bulan[date.getMonth()]; // Bulan dimulai dari 0
+        const hari = date.getDate();
+
+        // Format ke Desember 31, 2024
+        return `${bulanNama} ${hari}, ${tahun}`;
+    }
+
+
+    $(document).ready(function() {
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Request data dari server
+        $.ajax({
+            url: 'http://localhost:1337/api/korans', // Ganti dengan URL server Anda
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                let resData = data.data;
+                // Bersihkan daftar pengguna sebelumnya
+                $('#articleList').empty();
+
+                // Looping data dan tambahkan ke elemen HTML
+                $.each(resData, function(index, dt) {
+                    if(index < 3){
+                        var maxLength = 150;
+                        var originalText = "";
+                        // Potong string jika lebih panjang dari maxLength
+                        if (dt.isi.length > maxLength) {
+                            originalText = dt.isi.substring(0, maxLength) + '...'; // Menambahkan ellipsis "..." di akhir
+                        }else{
+                            originalText = dt.isi
+                        }
+
+                        $.post('markdown.php', {
+                            isi: originalText
+                        }, function (response) {
+                            var data = JSON.parse(response);
+
+                            const isoDate = dt.createdAt;
+                            const formattedDate = formatTanggal(isoDate);
+                            $('#articleList').append(
+                                `<li class="widget-post-list-item">
+                                    <div class="widget-post-content">
+                                    <a href="article.php?id=`+ dt.documentId +`">
+                                        <h5>`+ dt.judul +`</h5>
+                                    </a>
+                                    <h6>` + formattedDate +`</h6>
+                                    <p>`+ data.message + `</p>
+                                    </div>
+                                </li>`
+                            );
+                        });
+                    }   
+                });
+            },
+            error: function(error) {
+                alert('Gagal memuat data!');
+                console.error(error);
+            }
+        });
+    });
+</script>
