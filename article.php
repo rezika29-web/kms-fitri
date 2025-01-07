@@ -133,6 +133,7 @@ include 'template/footer.php';
         $.post('middleware/cekauth.php', {}, function (response) {
             var data = JSON.parse(response);
             if(data.success == false){
+                alert("silahkan login terlebih dahulu..")
                 var win = window.open('http://127.0.0.1/web/template/new/admin/', '_blank');
                 if (win) {
                     //Browser has allowed it to be opened
