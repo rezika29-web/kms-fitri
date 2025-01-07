@@ -128,6 +128,53 @@ include 'template/footer.php';
         return `${bulanNama} ${hari}, ${tahun}`;
     }
 
+    let docloversss;
+    function lovers(int, idArt, idloves=0) {
+        $.post('middleware/cekauth.php', {}, function (response) {
+            var data = JSON.parse(response);
+            if(data.success == false){
+                var win = window.open('http://127.0.0.1/web/template/new/admin/', '_blank');
+                if (win) {
+                    //Browser has allowed it to be opened
+                    win.focus();
+                } else {
+                    //Browser has blocked it
+                    alert('Please allow popups for this website');
+                }
+            }else{
+                let dt = new Date();
+                let reqBody = {
+                    "data": {
+                        "koran": idArt,
+                        "users_permissions_user": data.datas
+                    }
+                }
+                
+                if(int == 0){
+                    $.post("http://localhost:1337/api/lovers", reqBody, function(result){
+                        location.reload();
+                    }).fail(function (xhr, status, error) {
+                        // Callback gagal
+                        console.log('====================================');
+                        console.log("errro ", error);
+                        console.log('====================================');                    
+                    }); 
+                }else {
+                    $.ajax({
+                        url: 'http://localhost:1337/api/lovers/' + docloversss,
+                        type: 'DELETE',
+                        success: function(result) {
+                            location.reload();
+                        },
+                        error: function(result) {
+                            location.reload();
+                        }
+                    }); 
+                }
+            }
+        });
+    }
+
     $(document).ready(function() {
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -137,6 +184,7 @@ include 'template/footer.php';
         // Ambil parameter ID
         const id = getQueryParam('id');
         // Request data dari server
+
         $.ajax({
             url: 'http://localhost:1337/api/korans?populate=*&filters[documentId][$eq]=' + id, // Ganti dengan URL server Anda
             method: 'GET',
@@ -155,25 +203,69 @@ include 'template/footer.php';
                     }, function (response) {
                         var data = JSON.parse(response);
                         
-                        // Looping data dan tambahkan ke elemen HTML
-                        $('#contenArticle').append(
-                        ` <article class="post">
-                                    <div class="post-content">
-                                        <h3> `+ resData.judul +`</h3>
-                                        <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            `+ resData.users_permissions_user.username +` / `+formattedDate+`
-                                        </li>
-                                        </ul>
-                                        <div class="contentBaru" id="targetElement">` + data.message + `</div>
-                                    </div>
-                            </article>`
-                        );
+                        $.ajax({
+                            url: 'http://localhost:1337/api/lovers?populate=*&filters[koran][documentId][$eq]='+ id,
+                            method: 'GET',
+                            dataType: 'json',
+                            success: async function (resDatas) {
+                                let lovesData = resDatas.data;
+                                let getIdLoves; 
+                                $.each(lovesData, await function(index, dtl) {
+                                    docloversss = dtl.documentId;
+                                    if(dtl.users_permissions_user.id == 5){
+                                        // getIdLoves = `<img src="heart2.svg" width=20 height=20 style="margin-left:10px;" onclick="lovers(1 ` + resData.id +`)"/>`;
+                                        getIdLoves = `<img src="heart2.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(1, ` + resData.id +`, `+ dtl.id +`)"/>`
+                                    }else{
+                                        getIdLoves = `<img src="heart1.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(0, ` + resData.id +`)"/>`
+                                    }   
+                                });
 
+                                if(lovesData.length == 0){
+                                    getIdLoves = `<img src="heart1.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(0, ` + resData.id +`)"/>`
+                                }
+
+                                $('#contenArticle').append(
+                                ` <article class="post">
+                                            <div class="post-content">
+                                                <h3> `+ resData.judul +`</h3>
+                                                <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    `+ resData.users_permissions_user.username +` / `+formattedDate+ 
+                                                    getIdLoves + ` `+ lovesData.length +` Likes
+                                                </li>
+                                                </ul>
+                                                <div class="contentBaru" id="targetElement">` + data.message + `</div>
+                                            </div>
+                                    </article>`
+                                );
+                                $('#judulArticle').append(resData.judul);
+                                $('#breadcrumbArticle').append(`<li class="breadcrumb-item"><a href="index.html" class="text-white">Article</a></li>
+                                <li class="breadcrumb-item active" aria-current="page" >`+ resData.judul +`</li>`); 
+                            },
+                            error: function(error) {
+                                let lovesData = resDatas.data;
+                                // Looping data dan tambahkan ke elemen HTML
+                                $('#contenArticle').append(
+                                ` <article class="post">
+                                            <div class="post-content">
+                                                <h3> `+ resData.judul +`</h3>
+                                                <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    `+ resData.users_permissions_user.username +` / `+formattedDate+`
+                                                    <img src="heart1.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(0, ` + resData.id +`)"/>
+                                                    <img src="heart2.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(1 ` + resData.id +`)"/>
+                                                </li>
+                                                </ul>
+                                                <div class="contentBaru" id="targetElement">` + data.message + `</div>
+                                            </div>
+                                    </article>`
+                                );
+                                $('#judulArticle').append(resData.judul);
+                                $('#breadcrumbArticle').append(`<li class="breadcrumb-item"><a href="index.html" class="text-white">Article</a></li>
+                                <li class="breadcrumb-item active" aria-current="page" >`+ resData.judul +`</li>`); 
+                            }
+                        });
                         
-                        $('#judulArticle').append(resData.judul);
-                        $('#breadcrumbArticle').append(`<li class="breadcrumb-item"><a href="index.html" class="text-white">Article</a></li>
-                        <li class="breadcrumb-item active" aria-current="page" >`+ resData.judul +`</li>`); 
                     });
                 },
             error: function(error) {

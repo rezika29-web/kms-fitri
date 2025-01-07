@@ -92,19 +92,28 @@ Fixed Navigation
 
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav ml-auto text-center">
+          <li class="nav-item ">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#addModal" style="margin-left: 10px;">
+              search          
+            </a>
+          </li>
+          <!-- <li class="nav-item" id="kategoriListSide">
+          </li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="kategoriList">
+          </ul> -->
           <li class="nav-item <?= $beranda; ?>">
             <a class="nav-link" href="http://127.0.0.1/web/template/new/" >Beranda</a>
-            </li>
-              <li class="nav-item dropdown  <?= $artikel; ?>">
-                <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Artikel <i class="tf-ion-chevron-down"></i>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="kategoriList">
-                </ul>
-              </li>
-              <li class="nav-item ">
+          </li>
+          <li class="nav-item dropdown  <?= $artikel; ?>">
+            <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Artikel <i class="tf-ion-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="kategoriList">
+            </ul>
+          </li>
+          <li class="nav-item ">
             <a class="nav-link" href="http://127.0.0.1/web/template/new/admin/" >Login</a>
-            </li>
+          </li>
         </ul>
       </div>
     </nav>
@@ -114,3 +123,71 @@ Fixed Navigation
 <!--
 End Fixed Navigation
 ==================================== -->
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Search Artikel</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+              </button>
+          </div>
+            <div class="modal-body">
+              <div class="widget-search widget">
+                <form action="#">
+                  <input type="text" id="searchArtikel" class="form-control shadow-none" placeholder="Cari judul artikel...">
+                </form>
+                <div class="widget-categories widget">
+                  <ul class="widget-categories-list" id="artikelListSearch">
+                    </ul>
+                  </div>   
+                </div>
+          </div>
+          <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#searchArtikel').on('keyup', function () {
+            var searchValue = $(this).val().toLowerCase(); // Ambil nilai input dan ubah ke lowercase
+            $('#artikelListSearch li').filter(function () {
+                // Periksa apakah teks cocok dengan input
+                $(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1);
+            });
+        });
+    });
+</script>
+
+
+<script>
+  $(document).ready(function() {
+        // Request data dari server
+        $.ajax({
+            url: 'http://localhost:1337/api/korans', // Ganti dengan URL server Anda
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                let resData = data.data;
+                // Bersihkan daftar pengguna sebelumnya
+                $('#artikelList').empty();
+                $('#artikelListSearch').empty();
+
+                // Looping data dan tambahkan ke elemen HTML
+                $.each(resData, function(index, dt) {
+                    $('#artikelList').append('<li><a class="dropdown-item" href="article.php?id='+ dt.documentId + '">'+ dt.judul + '</a>' +'</li>');
+                    $('#artikelListSearch').append('<li><a href="article.php?id='+ dt.documentId + '">'+ dt.judul + '</a>' +'</li>');
+                });
+            },
+            error: function(error) {
+                alert('Gagal memuat data!');
+                console.error(error);
+            }
+        });
+});
+</script>
