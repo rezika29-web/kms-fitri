@@ -30,7 +30,7 @@ if (!isset($_SESSION['user_id'])) {
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script> -->
 
 </head>
 
@@ -65,7 +65,7 @@ if (!isset($_SESSION['user_id'])) {
                     <span>Kategori</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="artikel.php">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Artikel</span></a>
             </li>

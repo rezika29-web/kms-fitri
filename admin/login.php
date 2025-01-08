@@ -109,6 +109,7 @@ if (isset($_SESSION['user_id'])) {
                     $.post('auth.php', {
                         action: 'login',
                         user_id: result.user.id,
+                        documentId:result.user.documentId,
                         username: result.user.username
                     }, function (response) {
                         var data = JSON.parse(response);
