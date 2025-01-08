@@ -1,5 +1,13 @@
 
+<?php
+session_start();
 
+if (isset($_SESSION['user_id'])) {
+    $_SESSION['message'] = "Anda sudah login";
+    header("Location: index.php");
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,6 +95,8 @@
     <script>
         $(document).ready(function () {
             // Login
+            localStorage.removeItem("token");
+
             $('#loginButton').click(function () {
                 var email = $('#email').val();
                 var password = $('#password').val();
@@ -103,6 +113,8 @@
                     }, function (response) {
                         var data = JSON.parse(response);
                         $('#loginMessage').text(data.message);
+                        localStorage.setItem("token", result.jwt);
+
                         setTimeout(() => {
                             window.location.href = "http://127.0.0.1/web/template/new/admin/";
                         }, 2000);
