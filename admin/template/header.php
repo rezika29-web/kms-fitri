@@ -29,6 +29,8 @@ if (!isset($_SESSION['user_id'])) {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -57,6 +59,26 @@ if (!isset($_SESSION['user_id'])) {
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="kategori.php">
+                    <i class="fas fa-fw fa-tag"></i>
+                    <span>Kategori</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Artikel</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Profil</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">

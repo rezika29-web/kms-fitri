@@ -2,7 +2,7 @@
 <?php
 $requestUri = $_SERVER['REQUEST_URI'];
 $path = parse_url($requestUri, PHP_URL_PATH);
-if($path == '/web/template/new/'){
+if($path == '/Project/kms-fitri/'){
   $beranda = 'active';
   $artikel = '';
 }else{
@@ -79,7 +79,7 @@ Fixed Navigation
     <!-- main nav -->
     <nav class="navbar navbar-expand-lg navbar-light px-0">
       <!-- logo -->
-      <a class="navbar-brand logo" href="http://127.0.0.1/web/template/new/">
+      <a class="navbar-brand logo" href="http://127.0.0.1/Project/kms-fitri/">
         <!-- <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
         <img loading="lazy" class="logo-white" src="images/logo-white.png" alt="logo" /> -->
         <h1 style="color: white; font-weight: bold;">KMS Fitri</h1>
@@ -93,7 +93,7 @@ Fixed Navigation
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav ml-auto text-center">
           <li class="nav-item <?= $beranda; ?>">
-            <a class="nav-link" href="http://127.0.0.1/web/template/new/" >Beranda</a>
+            <a class="nav-link" href="http://127.0.0.1/Project/kms-fitri/" >Beranda</a>
             </li>
               <li class="nav-item dropdown  <?= $artikel; ?>">
                 <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -103,7 +103,7 @@ Fixed Navigation
                 </ul>
               </li>
               <li class="nav-item ">
-            <a class="nav-link" href="http://127.0.0.1/web/template/new/admin/" >Login</a>
+            <a class="nav-link" href="http://127.0.0.1/Project/kms-fitri/admin/" >Login</a>
             </li>
         </ul>
       </div>

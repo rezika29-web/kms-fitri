@@ -104,7 +104,7 @@
                         var data = JSON.parse(response);
                         $('#loginMessage').text(data.message);
                         setTimeout(() => {
-                            window.location.href = "http://127.0.0.1/web/template/new/admin/";
+                            window.location.href = "http://127.0.0.1/Project/kms-fitri/admin/";
                         }, 2000);
                     });
                 }).fail(function (xhr, status, error) {
