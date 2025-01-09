@@ -42,7 +42,7 @@
 
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user"
-                                            id="username" placeholder="username">
+                                            id="username" placeholder="fullname">
                                     </div>
                                     <div class="col-sm-6">
                                     <input type="email" class="form-control form-control-user" id="email"
@@ -91,7 +91,7 @@
                 $.post("http://localhost:1337/api/auth/local/register", reqBody, function(result){
                     $('#registerMessage').text("success register");
                     setTimeout(() => {
-                        window.location.href = "http://127.0.0.1/web/template/new/admin/";
+                        window.location.href = "http://127.0.0.1/Project/kms-fitri/admin/";
                     }, 2000);
                 }).fail(function (xhr, status, error) {
                     // Callback gagal

@@ -49,7 +49,7 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr cla ss="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">

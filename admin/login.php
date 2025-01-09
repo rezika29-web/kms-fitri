@@ -109,6 +109,7 @@ if (isset($_SESSION['user_id'])) {
                     $.post('auth.php', {
                         action: 'login',
                         user_id: result.user.id,
+                        documentId:result.user.documentId,
                         username: result.user.username
                     }, function (response) {
                         var data = JSON.parse(response);
@@ -116,7 +117,7 @@ if (isset($_SESSION['user_id'])) {
                         localStorage.setItem("token", result.jwt);
 
                         setTimeout(() => {
-                            window.location.href = "http://127.0.0.1/web/template/new/admin/";
+                            window.location.href = "http://127.0.0.1/Project/kms-fitri/admin/artikel.php";
                         }, 2000);
                     });
                 }).fail(function (xhr, status, error) {

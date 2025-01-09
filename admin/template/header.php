@@ -29,6 +29,8 @@ if (!isset($_SESSION['user_id'])) {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script> -->
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -58,7 +60,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Dashboard KMS</div>
             </a>
 
             <!-- Divider -->
@@ -70,13 +72,25 @@ if (!isset($_SESSION['user_id'])) {
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
-            <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                <a class="nav-link" href="kategori.php">
+                    <i class="fas fa-fw fa-tag"></i>
+                    <span>Kategori</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="artikel.php">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Artikel</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+            <li class="nav-item">
+                <a class="nav-link" href="profile.php">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Profil</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
