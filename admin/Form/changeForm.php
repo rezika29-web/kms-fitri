@@ -48,7 +48,8 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+                <h1 class="h3 mb-0 text-gray-800">Tambah Kategori</h1>
+                <p id="kategoriMessage"></p>
             </div>
 
             <!-- Content Row -->
@@ -56,33 +57,22 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-6">
                     <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
                         <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Profile</h6>
-                            </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th style=" text-align: center;">Nama Lengkap</th>
-                                                <th style=" text-align: center;">Email</th>
-                                                <th style=" text-align: center;">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th style=" text-align: center;">Nama Lengkap</th>
-                                                <th style="text-align: center;">Email</th>
-                                                <th style=" text-align: center;">Aksi</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody id="profileList">
+                            <div class="user" id="kategoriForm">
+                                <div class="form-group row">
 
-                                        </tbody>
-                                    </table>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="password" class="form-control form-control-user"
+                                            id="password" placeholder="Password">
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <button id="changeButton" class="btn btn-primary btn-user btn-block">Ubah Password</button>
+
+                                    </div>
                                 </div>
+                                <hr>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -90,10 +80,44 @@
             </div>
 
             <!-- Content Row -->
-        </div>
+         </div>
         <!-- /.container-fluid -->
 
     </div>
+    
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#changeButton').click(function () {
+                var kategori = $('#password').val();
+                let reqBody = {
+                    "data":{
+
+                        "password": password,
+                    }
+                }
+                $.post("http://localhost:1337/api/auth/change-password", reqBody, function(result){
+                    $('#kategoriMessage').text("success ubah password");
+                    setTimeout(() => {
+                        window.location.href = "http://127.0.0.1/Project/kms-fitri/admin/profile.php";
+                    }, 2000);
+                }).fail(function (xhr, status, error) {
+                    // Callback gagal
+                    $('#kategoriMessage').text("Gagal ubah password");
+                    
+                }); 
+            });
+
+        });
+    </script>
     <!-- End of Main Content -->
 
     <!-- Footer -->
@@ -105,7 +129,6 @@
         </div>
     </footer>
     <!-- End of Footer -->
-
+ 
 </div>
-
 <!-- End of Content Wrapper -->

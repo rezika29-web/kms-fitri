@@ -52,13 +52,6 @@ if (!isset($_SESSION['user_id'])) {
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="kategori.php">
                     <i class="fas fa-fw fa-tag"></i>
@@ -73,19 +66,11 @@ if (!isset($_SESSION['user_id'])) {
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="profile.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Profil</span></a>
             </li>
             <hr class="sidebar-divider d-none d-md-block">
-
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
