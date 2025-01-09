@@ -103,7 +103,7 @@
                 m += 1;  // JavaScript months are 0-11
                 var y = formattedDate.getFullYear();
 
-                let final = y+'-'+ (m < 9 ? '0'+m : m )+'-'+ (d < 9 ? '0'+d : d )
+                let final = y+'-'+ (m < 10 ? '0'+m : m )+'-'+ (d < 10 ? '0'+d : d )
 
                 if(resData.length == 0){
                   let tglN = new Date;
@@ -135,31 +135,47 @@
                       totalDatas = (Number(totalDatas) + Number(dt.total))
                   });
 
-                  let tglN = new Date;
-
-                  totalDay = totalDay + 1;
-                  totalDatas = totalDatas + 1;
-                  let reqBody = {
-                      "data": {
-                          "total": totalDay
-                      },
-                      "meta": {}
-                  }
-                  
-                  $.ajax({
-                      url: 'http://localhost:1337/api/total-urls/' + docIdDay, // Ganti dengan URL server Anda
-                      method: 'PUT',
-                      data: reqBody,
-                      dataType: 'json',
-                      success: function(data) {
-                        return data.data;
-                      },
-                      error: function(error) {
-                        return error;
+                  if(totalDay == 0){
+                      let tglN = new Date;
+                      let reqBody = {
+                          "data": {
+                              "total": 1,
+                              "tanggal_sekarang": tglN.toISOString()
+                          }
                       }
-                  });
 
-                  $('#totalday').append('<p>Hari ini :<br /> '+ totalDay + '</p>');
+                      $.post("http://localhost:1337/api/total-urls", reqBody, function(result){
+                        totalDay = 1;
+                        totalDatas = 1;
+                      }).fail(function (xhr, status, error) {
+                        console.log("error ", error);
+                      }); 
+                      $('#totalday').append('<p>Hari ini :<br /> 1 </p>');
+                  }else{
+                    let tglN = new Date;
+
+                    totalDay = totalDay + 1;
+                    totalDatas = totalDatas + 1;
+                    let reqBody = {
+                        "data": {
+                            "total": totalDay
+                        },
+                        "meta": {}
+                    }
+                    $.ajax({
+                        url: 'http://localhost:1337/api/total-urls/' + docIdDay, // Ganti dengan URL server Anda
+                        method: 'PUT',
+                        data: reqBody,
+                        dataType: 'json',
+                        success: function(data) {
+                          return data.data;
+                        },
+                        error: function(error) {
+                          return error;
+                        }
+                    });
+                    $('#totalday').append('<p>Hari ini :<br /> '+ totalDay + '</p>');
+                  }
                   $('#totalFullday').append('<p>Total : <br /> '+ String(totalDatas) + '</p>');
                 }
             },
