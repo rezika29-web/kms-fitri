@@ -9,11 +9,14 @@
     // Mengganti # dengan <h1> untuk heading
     $htmlText = preg_replace("/^# (.*)$/m", "<h1>$1</h1>", $markdownText);
     $htmlText = preg_replace("/^## (.*)$/m", "<h2>$1</h2>", $htmlText);
+    
     if ($action === 'article') {
+        $htmlText = preg_replace('/style="[^"]*"/', '', $htmlText);
         $htmlText = preg_replace("/!\[(.*?)\]\((.*?)\)/", "<img src=\"$2\" alt=\"$1\" >", $htmlText);
     }else{
+        $htmlText = preg_replace('/style="[^"]*"/', 'width=300; height=200;', $htmlText);
         // Mengganti ![alt](url) dengan <img> untuk gambar
-        $htmlText = preg_replace("/!\[(.*?)\]\((.*?)\)/", "<img src=\"$2\" alt=\"$1\" width=300; height=auto; >", $htmlText);
+        $htmlText = preg_replace("/!\[(.*?)\]\((.*?)\)/", "<img src=\"$2\" alt=\"$1\" width=300; height=200; >", $htmlText);
     }
 
     // Mengganti \n dengan <p> untuk paragraf
