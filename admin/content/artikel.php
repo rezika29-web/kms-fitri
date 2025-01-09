@@ -70,6 +70,8 @@
                                             <tr>
                                                 <th style="width: 50px; text-align: center;">No</th>
                                                 <th style="text-align: center;">Judul Artikel</th>
+                                                <th style="text-align: center;">Kategori</th>
+                                                <th style="text-align: center;">Like</th>
                                                 <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -77,6 +79,8 @@
                                             <tr>
                                                 <th style="width: 50px; text-align: center;">No</th>
                                                 <th style="text-align: center;">Judul Artikel</th>
+                                                <th style="text-align: center;">Kategori</th>
+                                                <th style="text-align: center;">Like</th>
                                                 <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </tfoot>

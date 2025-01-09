@@ -30,6 +30,8 @@ include 'template/footer.php';
                         `<tr>
                         <td style="width: 50px; text-align: center;">${index + 1}</td>
                         <td style="text-align: center;">${item.judul}</td>
+                        <td style="text-align: center;">${item.kategori.Kategori}</td>
+                        <td style="text-align: center;">${item.Like}</td>
                         <td style="text-align: center;">
                             <button class="btn btn-warning btn-sm btn-edit" data-id="${item.documentId}">Edit</button>
                             <button class="btn btn-danger btn-sm btn-delete" data-id="${item.documentId}">Hapus</button>
