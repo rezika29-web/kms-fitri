@@ -11,8 +11,8 @@
     $htmlText = preg_replace("/^## (.*)$/m", "<h2>$1</h2>", $htmlText);
     
     if ($action === 'article') {
-        $htmlText = preg_replace('/style="[^"]*"/', '', $htmlText);
-        $htmlText = preg_replace("/!\[(.*?)\]\((.*?)\)/", "<img src=\"$2\" alt=\"$1\" >", $htmlText);
+        $htmlText = preg_replace('/style="[^"]*"/', 'width=100%; height=auto;', $htmlText);
+        $htmlText = preg_replace("/!\[(.*?)\]\((.*?)\)/", "<img src=\"$2\" alt=\"$1\" width=100%; height=auto;>", $htmlText);
     }else{
         $htmlText = preg_replace('/style="[^"]*"/', 'width=300; height=200;', $htmlText);
         // Mengganti ![alt](url) dengan <img> untuk gambar
