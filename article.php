@@ -128,8 +128,76 @@ include 'template/footer.php';
         return `${bulanNama} ${hari}, ${tahun}`;
     }
 
+    let msgId;
+    let resDataArt;
+    let dateArt;
+    function lovefunc(id){
+        $.ajax({
+        url: 'http://localhost:1337/api/lovers?populate=*&filters[koran][documentId][$eq]='+ id,
+        method: 'GET',
+        dataType: 'json',
+        success: async function (resDatas) {
+            let lovesData = resDatas.data;
+            let getIdLoves; 
+
+            const isoDate = resDataArt.createdAt;
+            const formattedDate = formatTanggal(isoDate);
+
+            $.each(lovesData, await function(index, dtl) {
+                docloversss = dtl.documentId;
+                if(dtl.users_permissions_user.id == 5){
+                    getIdLoves = `<img src="heart2.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(1, ` + resDataArt.id +`, `+ dtl.id +`)"/>`
+                }else{
+                    getIdLoves = `<img src="heart1.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(0, ` + resDataArt.id +`)"/>`
+                }   
+            });
+
+            if(lovesData.length == 0){
+                getIdLoves = `<img src="heart1.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(0, ` + resDataArt.id +`)"/>`
+            }
+
+            $('#contenArticle').append(
+            ` <article class="post">
+                <div class="post-content">
+                    <h3> `+ resDataArt.judul +`</h3>
+                    <ul class="list-inline">
+                    <li class="list-inline-item">
+                        `+ resDataArt.users_permissions_user.username +` / `+formattedDate+ 
+                        getIdLoves + ` `+ lovesData.length +` Likes
+                    </li>
+                    </ul>
+                    <div class="contentBaru" id="targetElement">` + msgId + `</div>
+                </div>
+                </article>`
+            );
+        },
+        error: function(error) {
+            let lovesData = resDatas.data;
+            // Looping data dan tambahkan ke elemen HTML
+            $('#contenArticle').append(
+            ` <article class="post">
+                    <div class="post-content">
+                        <h3> `+ resDataArt.judul +`</h3>
+                        <ul class="list-inline">
+                        <li class="list-inline-item">
+                            `+ resDataArt.users_permissions_user.username +` / `+formattedDate+`
+                            <img src="heart1.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(0, ` + resDataArt.id +`)"/>
+                            <img src="heart2.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(1 ` + resDataArt.id +`)"/>
+                        </li>
+                        </ul>
+                        <div class="contentBaru" id="targetElement">` + msgId + `</div>
+                    </div>
+                </article>`
+            );
+        }
+    });
+    }
     let docloversss;
     function lovers(int, idArt, idloves=0) {
+        const id = getQueryParam('id');
+
+        $('#contenArticle').empty();
+
         $.post('middleware/cekauth.php', {}, function (response) {
             var data = JSON.parse(response);
             if(data.success == false){
@@ -152,8 +220,9 @@ include 'template/footer.php';
                 }
                 
                 if(int == 0){
-                    $.post("http://localhost:1337/api/lovers", reqBody, function(result){
-                        location.reload();
+                    $.post("http://localhost:1337/api/lovers", reqBody, async function(result){
+                        lovefunc(id)
+                        // location.reload();
                     }).fail(function (xhr, status, error) {
                         // Callback gagal
                         console.log('====================================');
@@ -164,11 +233,12 @@ include 'template/footer.php';
                     $.ajax({
                         url: 'http://localhost:1337/api/lovers/' + docloversss,
                         type: 'DELETE',
-                        success: function(result) {
-                            location.reload();
+                        success: async function(result) {
+                            // location.reload();
+                            lovefunc(id)
                         },
-                        error: function(result) {
-                            location.reload();
+                        error: async function(result) {
+                            lovefunc(id)
                         }
                     }); 
                 }
@@ -176,12 +246,12 @@ include 'template/footer.php';
         });
     }
 
-    $(document).ready(function() {
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
 
+    $(document).ready(function() {                                     
         // Ambil parameter ID
         const id = getQueryParam('id');
         // Request data dari server
@@ -194,10 +264,9 @@ include 'template/footer.php';
                 let resData = data.data[0];
                 // Bersihkan daftar pengguna sebelumnya
                 $('#contenArticle').empty();
-                
+                resDataArt = resData;
                 const isoDate = resData.createdAt;
                 const formattedDate = formatTanggal(isoDate);
-
                 $.post('markdown.php', {
                         action: 'article',
                         isi: resData.isi
@@ -211,6 +280,9 @@ include 'template/footer.php';
                             success: async function (resDatas) {
                                 let lovesData = resDatas.data;
                                 let getIdLoves; 
+
+                                msgId = data.message;
+
                                 $.each(lovesData, await function(index, dtl) {
                                     docloversss = dtl.documentId;
                                     if(dtl.users_permissions_user.id == 5){
@@ -275,6 +347,17 @@ include 'template/footer.php';
             }
         });
     });
+</script>
+
+<script>
+$(document).ready(function() {                                     
+    $('#testcontent').empty();
+    $("#clickme").click(function() {                                     
+        $('#testcontent').append(`<p>Testing 123</p>`);
+    })
+})
+
+
 </script>
 
 <script>
