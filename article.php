@@ -297,6 +297,37 @@ include 'template/footer.php';
                                     getIdLoves = `<img src="heart1.svg" width=20 height=20 style="margin-left:5px;" onclick="lovers(0, ` + resData.id +`)"/>`
                                 }
 
+                                // Ambil ID video dari link YouTube biasa
+                                function convertYoutubeToEmbed(link) {
+                                    try {
+                                        const url = new URL(link);
+
+                                        // Format pendek: https://youtu.be/VIDEO_ID
+                                        if (url.hostname === "youtu.be") {
+                                            return "https://www.youtube.com/embed/" + url.pathname.slice(1);
+                                        }
+                                        // Format biasa: https://www.youtube.com/watch?v=VIDEO_ID
+                                        else if (url.hostname.includes("youtube.com")) {
+                                            const videoId = url.searchParams.get("v");
+                                            return "https://www.youtube.com/embed/" + videoId;
+                                        }
+                                    } catch (e) {
+                                        return null;
+                                    }
+                                    return null;
+                                }
+
+                                const embedLink = convertYoutubeToEmbed(resData.link);
+
+                                const iframeHTML = embedLink ? `
+                                    <iframe width="560" height="315"
+                                        src="${embedLink}"
+                                        title="YouTube video player"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                    </iframe>` : '';
+
                                 $('#contenArticle').append(
                                 ` <article class="post">
                                             <div class="post-content">
@@ -307,6 +338,7 @@ include 'template/footer.php';
                                                     getIdLoves + ` `+ lovesData.length +` Likes
                                                 </li>
                                                 </ul>
+                                                ${iframeHTML}
                                                 <div class="contentBaru" id="targetElement">` + data.message + `</div>
                                             </div>
                                     </article>`
