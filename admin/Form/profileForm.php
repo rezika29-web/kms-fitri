@@ -26,7 +26,7 @@
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="profile.php">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>
@@ -48,8 +48,9 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Tambah Kategori</h1>
-                <p id="kategoriMessage"></p>
+            <h1 class="h3 mb-0 text-gray-800">Ubah Profil</h1>
+
+                <p id="profilMessage"></p>
             </div>
 
             <!-- Content Row -->
@@ -59,20 +60,19 @@
                     <div class="card shadow mb-4">
                         <div class="card shadow mb-4">
                             <div class="card-body">
-                            <div class="user" id="kategoriForm">
-                                <div class="form-group row">
+                                <div class="user">
+                                    <div class="form-group">
 
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user"
-                                            id="username" placeholder="Fullname">
-                                    </div>
-                                    <div class="col-sm-6">
-                                    <button id="profileButton" class="btn btn-primary btn-user btn-block">Ubah Data</button>
+                                        <div class="col-sm-6 mb-3 mb-sm-0" id="userForm">
 
+                                        </div>
+                                        <div class="col-sm-6"><br>
+                                            <!-- <button id="profileButton" class="btn btn-primary btn-user btn-block">Ubah Data</button> -->
+                                            <button id="profileButton" class="btn btn-primary btn-user btn-block">Ubah Data</button>
+                                        </div>
                                     </div>
+                                    <hr>
                                 </div>
-                                <hr>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -80,11 +80,11 @@
             </div>
 
             <!-- Content Row -->
-         </div>
+        </div>
         <!-- /.container-fluid -->
 
     </div>
-    
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -95,29 +95,52 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#profileButton').click(function () {
-                var kategori = $('#username').val();
-                let reqBody = {
-                    "data":{
+        $(document).ready(function() {
+            $('#profileButton').click(function() {
+                console.log("afbjkanfk");
 
-                        "username": username,
-                    }
+                // Ambil nilai dari input
+                var username = $('#username').val();
+
+                // Validasi input (opsional)
+                if (!username) {
+                    $('#profileMessage').text("Username tidak boleh kosong.");
+                    return;
                 }
-                $.post("http://localhost:1337/api/users/me", reqBody, function(result){
-                    $('#kategoriMessage').text("success ubah data");
-                    setTimeout(() => {
-                        window.location.href = "http://127.0.0.1/Project/kms-fitri/admin/profile.php";
-                    }, 2000);
-                }).fail(function (xhr, status, error) {
-                    // Callback gagal
-                    $('#kategoriMessage').text("Gagal ubah data");
-                    
-                }); 
-            });
 
+                // Buat body request
+                let reqBody = {
+                    username: username
+                };
+
+                // Kirim PUT request ke server
+                $.ajax({
+                    url: 'http://localhost:1337/api/users/' + <?= $_SESSION['user_id']; ?>, // URL API Anda
+                    method: "PUT",
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("token"),
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify(reqBody),
+                    success: function(result) {
+                        // Tampilkan pesan sukses
+                        $('#profileMessage').text("Berhasil mengubah data.");
+
+                        // Redirect setelah beberapa detik
+                        setTimeout(() => {
+                            window.location.href = "http://127.0.0.1/Project/kms-fitri/admin/profile.php";
+                        }, 2000);
+                    },
+                    error: function(xhr, status, error) {
+                        // Tampilkan pesan gagal
+                        $('#profileMessage').text("Gagal mengubah data.");
+                        console.error("Error:", error);
+                    }
+                });
+            });
         });
     </script>
+
     <!-- End of Main Content -->
 
     <!-- Footer -->
@@ -129,6 +152,6 @@
         </div>
     </footer>
     <!-- End of Footer -->
- 
+
 </div>
 <!-- End of Content Wrapper -->

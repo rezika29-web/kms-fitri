@@ -112,7 +112,7 @@ Fixed Navigation
                 </ul>
               </li>
               <li class="nav-item ">
-            <a class="nav-link" href="http://127.0.0.1/Project/kms-fitri/admin/" >Login</a>
+            <a class="nav-link" href="http://127.0.0.1/Project/kms-fitri/admin/artikel.php" >Login</a>
             </li>
         </ul>
       </div>

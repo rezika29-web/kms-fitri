@@ -1,6 +1,6 @@
 <?php
 include 'template/header.php';
-include 'content/profile.php';
+include 'Form/profileForm.php'; 
 include 'template/footer.php';
 ?>
 
@@ -21,18 +21,11 @@ include 'template/footer.php';
                 console.log("data", response); // Debug data untuk memastikan respons
 
                 // Bersihkan daftar sebelumnya
-                $('#profileList').empty();
+                $('#userForm').empty();
 
                 // Looping data dan tambahkan ke elemen HTML
-                $('#profileList').append(
-                    `<tr>
-                    <td style="width: 50px; text-align: center;">${response.username}</td>
-                    <td style="text-align: center;">${response.email}</td>
-                    <td style="text-align: center;">
-                            <a href="profiledit.php" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="profilechange.php" class="btn btn-danger btn-sm">Ubah Password</a>
-                    </td>
-                </tr>`
+                $('#userForm').append(
+                    `<input type="text" class="form-control form-control-user" id="username" value="${response.username}">`
                 );
             },
             error: function(error) {

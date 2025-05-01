@@ -68,9 +68,9 @@ if (!isset($_SESSION['user_id'])) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="http://127.0.0.1/web/template/new/admin">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                <a class="nav-link" href="http://127.0.0.1/Project/kms-fitri">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Home</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="kategori.php">

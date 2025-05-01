@@ -144,7 +144,7 @@ include 'template/footer.php';
                             `<article class="col-lg-4 col-md-6">
                                 <div class="post-item">
                                     <div class="content">
-                                        <h3><a href="single-post.html">`+ dt.judul + `</a></h3>
+                                        <h3><a href="article.php?id=`+ dt.documentId + `">`+ dt.judul + `</a></h3>
                                         <p style="font-size: 13px;">`+dt.users_permissions_user.username+` / `+formattedDate+`</p>
                                         <p>`+ data.message + `</p>
                                         <a class="btn btn-main" href="article.php?id=`+ dt.documentId + `">Read more</a>
