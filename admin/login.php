@@ -115,6 +115,9 @@ if (isset($_SESSION['user_id'])) {
                         var data = JSON.parse(response);
                         $('#loginMessage').text(data.message);
                         localStorage.setItem("token", result.jwt);
+                        localStorage.setItem("user_id", result.user.id);
+                        localStorage.setItem("username", result.user.username);
+                        localStorage.setItem("documentId", result.user.documentId);
 
                         setTimeout(() => {
                             window.location.href = "http://127.0.0.1/Project/kms-fitri/admin/artikel.php";

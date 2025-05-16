@@ -2,7 +2,7 @@
 <?php
 $requestUri = $_SERVER['REQUEST_URI'];
 $path = parse_url($requestUri, PHP_URL_PATH);
-if($path == '/Project/kms-fitri/'){
+if($path == '/Project/qibil/kms-qibil/'){
   $beranda = 'active';
   $artikel = '';
 }else{
@@ -79,7 +79,7 @@ Fixed Navigation
     <!-- main nav -->
     <nav class="navbar navbar-expand-lg navbar-light px-0">
       <!-- logo -->
-      <a class="navbar-brand logo" href="http://127.0.0.1/Project/kms-fitri/">
+      <a class="navbar-brand logo" href="http://127.0.0.1/web/template/new/">
         <!-- <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
         <img loading="lazy" class="logo-white" src="images/logo-white.png" alt="logo" /> -->
         <h1 style="color: white; font-weight: bold;">KMS Fitri</h1>
@@ -102,7 +102,7 @@ Fixed Navigation
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="kategoriList">
           </ul> -->
           <li class="nav-item <?= $beranda; ?>">
-            <a class="nav-link" href="http://127.0.0.1/Project/kms-fitri/" >Beranda</a>
+            <a class="nav-link" href="http://127.0.0.1/Project/qibil/kms-qibil/" >Beranda</a>
             </li>
               <li class="nav-item dropdown  <?= $artikel; ?>">
                 <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -112,7 +112,7 @@ Fixed Navigation
                 </ul>
               </li>
               <li class="nav-item ">
-            <a class="nav-link" href="http://127.0.0.1/Project/kms-fitri/admin/artikel.php" >Login</a>
+            <a class="nav-link" href="http://127.0.0.1/Project/qibil/kms-qibil/admin/login.php" >Login</a>
             </li>
         </ul>
       </div>
@@ -151,6 +151,8 @@ End Fixed Navigation
         </div>
     </div>
 </div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 <script>
     $(document).ready(function () {
