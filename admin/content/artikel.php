@@ -72,6 +72,7 @@
                                                 <th style="text-align: center;">Judul Artikel</th>
                                                 <th style="text-align: center;">Kategori</th>
                                                 <th style="text-align: center;">Like</th>
+                                                <th style="text-align: center;">Status</th>
                                                 <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -81,6 +82,7 @@
                                                 <th style="text-align: center;">Judul Artikel</th>
                                                 <th style="text-align: center;">Kategori</th>
                                                 <th style="text-align: center;">Like</th>
+                                                <th style="text-align: center;">Status</th>
                                                 <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </tfoot>

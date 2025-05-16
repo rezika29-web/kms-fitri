@@ -32,6 +32,7 @@ include 'template/footer.php';
                         <td style="text-align: center;">${item.judul}</td>
                         <td style="text-align: center;">${item.kategori.Kategori}</td>
                         <td style="text-align: center;">${item.Like}</td>
+                        <td style="text-align: center;">${item.status_koran}</td>
                         <td style="text-align: center;">
                             <a href="artikeledit.php?id=${item.documentId}" class="btn btn-warning btn-sm">Edit</a>
                             <button class="btn btn-danger btn-sm btn-delete" data-id="${item.documentId}">Hapus</button>

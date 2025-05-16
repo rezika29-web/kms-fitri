@@ -197,7 +197,8 @@ if (isset($_GET['id'])) {
                         "judul": judul,
                         "isi": summernote,
                         "kategori": kategori,
-                        "users_permissions_user": idUser
+                        "users_permissions_user": idUser,
+                        "status_koran": "Menunggu"
                     }
                 }
                 if (artikelId) {
