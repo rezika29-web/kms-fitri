@@ -18,9 +18,10 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="block mt-4">
-					<h1 class="wow fadeInUp" data-wow-duration=".5s" data-wow-delay=".3s">We are smart <br> Creative Agency</h1>
-					<p class="wow fadeInUp" data-wow-duration=".5s" data-wow-delay=".5s">Lorem ipsum dolor sit amet, consectetur
-						adipisicing elit. Nulla, ad rerum repellat. Sequi, labore, illo. Ducimus voluptates quidem obcaecati, ad.
+					<h1 style="font-size: 3rem;" class="wow fadeInUp" data-wow-duration=".5s" data-wow-delay=".3s">MELESTARIKAN PENGATAHUAN <br> MELESTARIKAN PENGATAHUAN</h1>
+					<p class="wow fadeInUp" data-wow-duration=".5s" data-wow-delay=".5s">Sistem ini dibangun untuk mendokumentasikan, mengelola, dan membagikan pengetahuan berharga tentang proses budidaya tanaman kapur, dari generasi ke generasi.
+Kami percaya bahwa pengetahuan lokal adalah aset berharga. Oleh karena itu, melalui KMS ini, kami menghadirkan pusat informasi yang komprehensif mengenai teknik penanaman, perawatan, hingga panen tanaman kapur  – sebuah kekayaan alam dan budaya yang hampir punah.
+
 					</p>
 				</div>
 			</div>

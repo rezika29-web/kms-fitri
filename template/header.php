@@ -18,7 +18,7 @@ if($path == '/Project/kms-fitri/'){
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Kms Fitri</title>
+  <title></title>
 
     <!-- Menyertakan Marked.js dari CDN -->
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.12/lib/marked.min.js"></script>
@@ -82,7 +82,7 @@ Fixed Navigation
       <a class="navbar-brand logo" href="http://127.0.0.1/Project/kms-fitri/">
         <!-- <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
         <img loading="lazy" class="logo-white" src="images/logo-white.png" alt="logo" /> -->
-        <h1 style="color: white; font-weight: bold;">KMS Fitri</h1>
+        <h3 style="color: white; font-weight: bold;">Knowledge Management System Budidaya Tanaman Kapur</h3>
       </a>
       <!-- /logo -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
