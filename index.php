@@ -99,6 +99,8 @@ include 'template/footer.php';
             return urlParams.get(param);
         }
 
+
+        
         // Request data dari server
         $.ajax({
             url: 'http://localhost:1337/api/korans?populate=*', // Ganti dengan URL server Anda
