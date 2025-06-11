@@ -109,8 +109,11 @@ include 'template/footer.php';
                 // Bersihkan daftar pengguna sebelumnya
                 $('#articleList').empty();
                 // Looping data dan tambahkan ke elemen HTML
+                let k = 0;
                 $.each(resData, function(index, dt) {
-                    if(index < 6){
+                    k++;
+                    if(k < 6){
+                        if(dt.status_koran == "Disetujui"){
                         var maxLength = 150;
                         var originalText = "";
                         // Potong string jika lebih panjang dari maxLength
@@ -140,6 +143,7 @@ include 'template/footer.php';
                             );
                         });
                     }
+                }
                 });
             },
             error: function(error) {

@@ -435,8 +435,11 @@ $(document).ready(function() {
                 $('#articleList').empty();
 
                 // Looping data dan tambahkan ke elemen HTML
+                let k=0;
                 $.each(resData, function(index, dt) {
-                    if(index < 3){
+                    if(dt.status_koran == "Disetujui"){
+                    k++;
+                    if(k < 4){
                         var maxLength = 150;
                         var originalText = "";
                         // Potong string jika lebih panjang dari maxLength
@@ -466,6 +469,7 @@ $(document).ready(function() {
                             );
                         });
                     }   
+                }
                 });
             },
             error: function(error) {
